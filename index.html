@@ -11,6 +11,10 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background-color: #020617;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
         }
         .glass-card {
             background: rgba(15, 23, 42, 0.6);
@@ -99,7 +103,7 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2">
                 <div class="w-8 h-8 flex items-center justify-center">
-                    <img src="YiaLogo.nobackground.png" alt="Yia Logo" class="w-full h-full object-contain">
+                    <img src="YiaLogo.nobackground.green.png" alt="Yia Logo" class="w-full h-full object-contain">
                 </div>
                 <span class="text-2xl font-bold tracking-tighter text-white">Yia</span>
             </div>
@@ -113,7 +117,7 @@
     </nav>
 
     <!-- HERO -->
-    <section class="relative pt-44 pb-32 overflow-hidden hero-gradient">
+    <section class="relative pt-44 pb-32 overflow-hidden hero-gradient snap-start min-h-screen">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <div class="inline-flex items-center space-x-2 bg-green-950/50 border border-green-500/30 px-4 py-1.5 rounded-full mb-8">
                 <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
@@ -137,7 +141,7 @@
     </section>
 
     <!-- OUT OF THE BOX SOLUTIONS -->
-    <section id="outofbox" class="py-24 bg-slate-950">
+    <section id="outofbox" class="py-24 bg-slate-950 snap-start min-h-screen scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Out of the Box Solutions</h2>
@@ -193,7 +197,7 @@
                 <div class="w-14 h-14 bg-green-900/50 rounded-2xl flex items-center justify-center mb-6 text-green-400">
                     <i data-lucide="rocket" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-3xl font-bold text-white mb-4">AI Turnkey Toolkit</h3>
+                <h3 class="text-3xl font-bold text-white mb-4">Turnkey<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Toolkit</span></h3>
                 <p class="text-slate-400 leading-relaxed mb-8">
                     A 30-day AI implementation program built to deliver measurable wins across research, communications, and operations — starting in your first month.
                 </p>
@@ -241,7 +245,7 @@
     </section>
 
     <!-- CUSTOM SOLUTIONS -->
-    <section id="custom" class="py-24 bg-slate-900/50 border-t border-slate-900">
+    <section id="custom" class="py-24 bg-slate-900/50 border-t border-slate-900 snap-start min-h-screen scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Custom Solutions</h2>
@@ -254,7 +258,7 @@
                     <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
                         <i data-lucide="activity"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Medical Device Sales Productivity Suite</h3>
+                    <h3 class="text-2xl font-bold text-white mb-3">Rep<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Flow</span></h3>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
                         Built for medical device sales reps who spend too much time on admin and not enough time in the room. Automate call prep, post-call documentation, territory planning, and physician outreach — all within compliance guardrails.
                     </p>
@@ -283,7 +287,7 @@
                     <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
                         <i data-lucide="music"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">TourManager</h3>
+                    <h3 class="text-2xl font-bold text-white mb-3">Tour<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Manager</span></h3>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
                         An AI operations platform built for touring artists and their teams. From routing and contracts to rider logistics and settlements — TourManager keeps the entire operation running without anything falling through the cracks.
                     </p>
@@ -311,7 +315,7 @@
     </section>
 
     <!-- AI CONSULTING -->
-    <section id="consulting" class="py-24 border-t border-slate-900">
+    <section id="consulting" class="py-24 border-t border-slate-900 snap-start min-h-screen scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">AI Consulting</h2>
@@ -351,7 +355,7 @@
     </section>
 
     <!-- BOOKING -->
-    <section id="booking" class="py-24 border-t border-slate-900">
+    <section id="booking" class="py-24 border-t border-slate-900 snap-start min-h-screen scroll-mt-20">
         <div class="max-w-5xl mx-auto px-6">
             <div class="glass-card rounded-3xl overflow-hidden shadow-2xl">
                 <div class="p-8 md:p-12 text-center">
@@ -366,12 +370,12 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-12 border-t border-slate-900 bg-slate-950">
+    <footer class="py-12 border-t border-slate-900 bg-slate-950 snap-start scroll-mt-20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
                 <div class="flex items-center space-x-2">
                     <div class="w-6 h-6 flex items-center justify-center">
-                        <img src="YiaLogo.nobackground.png" alt="Yia Logo" class="w-full h-full object-contain">
+                        <img src="YiaLogo.nobackground.green.png" alt="Yia Logo" class="w-full h-full object-contain">
                     </div>
                     <span class="text-lg font-bold text-white tracking-tighter">Yia</span>
                 </div>
