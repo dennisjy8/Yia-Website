@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yia | AI Strategy & Implementation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #020617;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.12) 0%, rgba(2, 6, 23, 0) 70%);
+        }
+
+        /* WorkClaw Orbit Animation */
+        @keyframes orbit-spin {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to   { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        .orbit-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .orbit-path {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 50%;
+        }
+        .orbit-icon {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: orbit-spin 15s linear infinite;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            background: #ffffff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .orbit-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* CTA pulse — fires 3× on page load, then stops */
+        @keyframes cta-pulse {
+            0%, 100% { transform: scale(1); }
+            50%       { transform: scale(1.05); }
+        }
+        .cta-pulse { animation: cta-pulse 2s ease-in-out 3; }
+
+        /* CTA hover */
+        #toolkit-cta-btn,
+        #mobile-cta-btn {
+            transition: background-color 0.15s ease, transform 0.15s ease;
+        }
+        #toolkit-cta-btn:not(:disabled):hover,
+        #mobile-cta-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            background-color: #16a34a; /* green-600 → green-700 */
+        }
+        #toolkit-cta-btn:disabled,
+        #mobile-cta-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Mobile sticky bar — hidden by default, slides up when toolkit card is visible */
+        #mobile-sticky-cta {
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        #mobile-sticky-cta.visible {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="text-slate-200 antialiased">
+
+    <!-- NAV -->
+    <nav class="fixed w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <img src="YiaLogo.nobackground.png" alt="Yia Logo" class="w-full h-full object-contain">
+                </div>
+                <span class="text-2xl font-bold tracking-tighter text-white">Yia</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-400">
+                <a href="#outofbox" class="hover:text-green-400 transition">Out of the Box</a>
+                <a href="#custom" class="hover:text-green-400 transition">Custom Solutions</a>
+                <a href="#consulting" class="hover:text-green-400 transition">AI Consulting</a>
+                <a href="#booking" class="px-5 py-2 bg-green-600 text-white rounded-full hover:bg-green-500 transition">Book Meeting</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative pt-44 pb-32 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center space-x-2 bg-green-950/50 border border-green-500/30 px-4 py-1.5 rounded-full mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span class="text-xs font-semibold uppercase tracking-widest text-green-300">Engineering the Great Transition</span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                Engineering solutions for <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">how your business actually runs</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-xl text-slate-400 mb-10 leading-relaxed">
+                We build AI tools and automated workflows grounded in the real constraints of your industry — not generic platforms that need to be forced to fit.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#booking" class="w-full sm:w-auto px-8 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-500 hover:-translate-y-1 transition shadow-lg shadow-green-500/25 text-center">
+                    Book a Strategy Call
+                </a>
+                <a href="#outofbox" class="w-full sm:w-auto px-8 py-4 border border-slate-700 font-bold rounded-xl hover:bg-slate-800 transition text-center">
+                    See Our Solutions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUT OF THE BOX SOLUTIONS -->
+    <section id="outofbox" class="py-24 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Out of the Box Solutions</h2>
+                <p class="text-slate-400 max-w-xl">Ready to deploy from day one. No custom development, no long onboarding — just tools that work.</p>
+            </div>
+
+            <!-- WorkClaw -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16 pb-16 border-b border-slate-800">
+                <div>
+                    <h3 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Work<span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Claw</span></h3>
+                    <p class="text-lg text-slate-300 mb-6 leading-relaxed">One brain. Every channel.</p>
+                    <div class="space-y-5">
+                        <div class="flex gap-4">
+                            <div class="text-green-400 mt-1 shrink-0"><i data-lucide="layout-grid"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">End the App Chaos</h4>
+                                <p class="text-slate-400 text-sm">Centralize Chats, Email, and Calendar into one autonomous interface.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-green-400 mt-1 shrink-0"><i data-lucide="bot"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Autonomous Action</h4>
+                                <p class="text-slate-400 text-sm">Reads meeting transcripts, drafts investor follow-ups, and manages invites without you lifting a finger.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="orbit-container">
+                        <div class="orbit-path"></div>
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden border border-green-500/30 shadow-[0_0_20px_rgba(34,197,94,0.35)]">
+                            <img src="WorkClaw Icon.jpeg" alt="WorkClaw" class="w-full h-full object-cover">
+                        </div>
+                        <div class="orbit-icon" style="animation-delay: 0s;">
+                            <img src="User Icon.jpeg" alt="User">
+                        </div>
+                        <div class="orbit-icon" style="animation-delay: -3.75s;">
+                            <img src="Mail Icon.jpeg" alt="Mail">
+                        </div>
+                        <div class="orbit-icon" style="animation-delay: -7.5s;">
+                            <img src="Calendar Icon.jpeg" alt="Calendar">
+                        </div>
+                        <div class="orbit-icon" style="animation-delay: -11.25s;">
+                            <img src="Drive Icon.jpeg" alt="Drive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Turnkey Toolkit -->
+            <div id="toolkit-card" class="glass-card rounded-3xl p-10 hover:border-green-500/30 transition max-w-lg">
+                <div class="w-14 h-14 bg-green-900/50 rounded-2xl flex items-center justify-center mb-6 text-green-400">
+                    <i data-lucide="rocket" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-white mb-4">AI Turnkey Toolkit</h3>
+                <p class="text-slate-400 leading-relaxed mb-8">
+                    A 30-day AI implementation program built to deliver measurable wins across research, communications, and operations — starting in your first month.
+                </p>
+                <hr class="border-slate-700 mb-8">
+                <div class="space-y-5 mb-10">
+                    <div class="flex gap-3 items-start">
+                        <div class="text-green-400 mt-0.5 shrink-0"><i data-lucide="check-circle"></i></div>
+                        <p class="text-slate-300 text-sm">3 role-specific playbooks with ready-to-use prompt libraries</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="text-green-400 mt-0.5 shrink-0"><i data-lucide="check-circle"></i></div>
+                        <p class="text-slate-300 text-sm">30+ copy-paste prompt templates for your most common workflows</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="text-green-400 mt-0.5 shrink-0"><i data-lucide="check-circle"></i></div>
+                        <p class="text-slate-300 text-sm">Week-by-week 30-day roadmap so your team knows exactly what to do</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="text-green-400 mt-0.5 shrink-0"><i data-lucide="check-circle"></i></div>
+                        <p class="text-slate-300 text-sm">Team adoption toolkit to turn resistant staff into AI advocates</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="text-green-400 mt-0.5 shrink-0"><i data-lucide="check-circle"></i></div>
+                        <p class="text-slate-300 text-sm">30-day results review call based on your actual data, not a template</p>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <p class="text-3xl font-bold text-green-400">$1,500</p>
+                    <p class="text-slate-500 text-sm mt-1">One-time · No monthly fees</p>
+                </div>
+
+                <!-- CTA button (desktop / in-card) -->
+                <button
+                    id="toolkit-cta-btn"
+                    onclick="startCheckout()"
+                    class="cta-pulse w-full py-4 bg-green-600 text-white font-bold rounded-xl
+                           text-base shadow-lg shadow-green-500/25">
+                    Get the Toolkit — $1,500
+                </button>
+                <p class="text-slate-500 text-xs text-center mt-3">
+                    No monthly commitment · Full materials yours to keep
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOM SOLUTIONS -->
+    <section id="custom" class="py-24 bg-slate-900/50 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">Custom Solutions</h2>
+                <p class="text-slate-400 max-w-xl">Purpose-built platforms engineered for the specific demands of your industry — not adapted from something generic.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Medical Device Sales Productivity Suite -->
+                <div class="glass-card rounded-3xl p-8 hover:border-green-500/40 transition">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Medical Device Sales Productivity Suite</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Built for medical device sales reps who spend too much time on admin and not enough time in the room. Automate call prep, post-call documentation, territory planning, and physician outreach — all within compliance guardrails.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">AI-generated call briefs and post-call summaries</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Automated CRM logging</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Automated Quote Generation</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Territory and quota intelligence dashboards</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TourManager -->
+                <div class="glass-card rounded-3xl p-8 hover:border-green-500/40 transition">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <i data-lucide="music"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">TourManager</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        An AI operations platform built for touring artists and their teams. From routing and contracts to rider logistics and settlements — TourManager keeps the entire operation running without anything falling through the cracks.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Intelligent tour routing and schedule optimization</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Automated venue and vendor communications</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Contract drafting and settlement reconciliation</p>
+                        </div>
+                        <div class="flex gap-3 items-center">
+                            <div class="text-green-400 shrink-0"><i data-lucide="check"></i></div>
+                            <p class="text-slate-300 text-sm">Rider and logistics management at scale</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI CONSULTING -->
+    <section id="consulting" class="py-24 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">AI Consulting</h2>
+                <p class="text-slate-400 max-w-xl">For leadership teams that need more than a vendor — a strategic partner who understands the technology and the business case behind it.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8 rounded-3xl hover:border-green-500/50 transition">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">AI Implementation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Custom deployment of LLMs and agentic systems built around your proprietary data and workflows. We don't just recommend tools — we build and stand up the infrastructure.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl hover:border-green-500/50 transition">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Workflow Automation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        We map your existing processes end to end, identify the highest-friction bottlenecks, and replace them with autonomous, self-correcting workflows.
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl hover:border-green-500/50 transition">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-400">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Fractional AI Strategy</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Ongoing strategic oversight for executive teams. We provide the roadmap, the industry context, and the technical direction to scale AI adoption without proportional overhead.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="py-24 border-t border-slate-900">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="glass-card rounded-3xl overflow-hidden shadow-2xl">
+                <div class="p-8 md:p-12 text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-white">Secure Your Yia Session</h2>
+                    <p class="text-slate-400">Select a time below to begin your operational audit.</p>
+                </div>
+                <div class="bg-white border-t border-slate-800">
+                    <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ35TKN1I0AhKurevH0pMIJuzuR8Dr94nV2O7-vzRCps6-FAj7R0uj10I9FtsB2amzfpfGCGora1?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-slate-900 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                <div class="flex items-center space-x-2">
+                    <div class="w-6 h-6 flex items-center justify-center">
+                        <img src="YiaLogo.nobackground.png" alt="Yia Logo" class="w-full h-full object-contain">
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tighter">Yia</span>
+                </div>
+                <div class="flex space-x-8 text-xs font-medium text-slate-500">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="mailto:strategy@yia.ai" class="hover:text-white transition">Contact</a>
+                </div>
+                <div class="text-xs text-slate-600">
+                    © 2026 Yia Strategy Group. <span class="text-slate-500 ml-2">Built by Yia.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ── Mobile sticky CTA (md and below) ─────────────────────────────────── -->
+    <div id="mobile-sticky-cta"
+         class="fixed bottom-0 left-0 right-0 md:hidden z-50
+                bg-slate-950/95 backdrop-blur-md border-t border-slate-800 p-4">
+        <button
+            id="mobile-cta-btn"
+            onclick="startCheckout()"
+            class="w-full py-4 bg-green-600 text-white font-bold rounded-xl text-base
+                   shadow-lg shadow-green-500/25">
+            Get the Toolkit — $1,500
+        </button>
+        <p class="text-slate-500 text-xs text-center mt-2">
+            No monthly commitment · Full materials yours to keep
+        </p>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ── Mobile sticky: show when toolkit card enters viewport ──────────────
+        (function () {
+            const card      = document.getElementById('toolkit-card');
+            const stickyBar = document.getElementById('mobile-sticky-cta');
+            if (!card || !stickyBar) return;
+
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        stickyBar.classList.toggle('visible', entry.isIntersecting);
+                    });
+                },
+                { threshold: 0.05 }
+            );
+            observer.observe(card);
+        })();
+
+        // ── Stripe checkout ────────────────────────────────────────────────────
+        async function startCheckout() {
+            const btns = [
+                document.getElementById('toolkit-cta-btn'),
+                document.getElementById('mobile-cta-btn'),
+            ].filter(Boolean);
+
+            // Disable all CTA buttons and show loading text
+            btns.forEach(b => { b.disabled = true; b.textContent = 'Processing…'; });
+
+            try {
+                const res = await fetch('/create-checkout-session', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({}),
+                });
+
+                if (!res.ok) throw new Error(`Server responded ${res.status}`);
+
+                const { url, error } = await res.json();
+                if (error) throw new Error(error);
+
+                // Redirect to Stripe-hosted checkout
+                window.location.href = url;
+
+            } catch (err) {
+                console.error('[checkout]', err);
+                btns.forEach(b => {
+                    b.disabled    = false;
+                    b.textContent = 'Get the Toolkit — $1,500';
+                });
+                alert('Something went wrong starting checkout. Please try again or contact strategy@yia.ai.');
+            }
+        }
+    </script>
+</body>
+</html>
